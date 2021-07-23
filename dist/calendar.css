@@ -14,7 +14,6 @@
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.9);
   border-radius: 10px;
-  display: flex;
   align-content: center;
 }
 .month-year-title {
@@ -28,4 +27,21 @@
 .left-arr {
   position: relative;
   left: 270px;
+}
+.week-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: calc(50px * 7);
+  margin: 10px auto;
+  justify-content: space-around;
+}
+.cell {
+  display: flex;
+  width: 40px;
+  height: 40px;
+  margin: 5px;
+  border-radius: 3px;
+  justify-content: center;
+  align-items: center;
 }

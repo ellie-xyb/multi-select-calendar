@@ -456,11 +456,42 @@
   }
 
   // src/index.jsx
+  function Cell({ value }) {
+    return /* @__PURE__ */ v("div", {
+      className: "cell"
+    }, value);
+  }
+  function monthDays(activeDate) {
+    const firstDate = new Date(activeDate.getFullYear(), activeDate.getMonth(), 1);
+    const firstWeekDay = firstDate.getDay();
+    let lastDate = firstDate;
+    lastDate.setMonth(lastDate.getMonth() + 1);
+    lastDate.setDate(0);
+    lastDate = lastDate.getDate();
+    let out = [];
+    for (let i4 = 0; i4 < firstWeekDay; i4++) {
+      out.push("");
+    }
+    for (let i4 = 1; i4 <= lastDate; i4++) {
+      out.push(new Date(activeDate.getFullYear(), activeDate.getMonth(), i4).toLocaleString("default", { day: "numeric" }));
+    }
+    return out;
+  }
   function Calendar({ availableDates = "", outputName = "selected-dates" }) {
     const [selectedDates, setSelectedDates] = l3([]);
     const [activeDate, setActiveDate] = l3(new Date());
-    let month = activeDate.toLocaleString("default", { month: "long" });
-    let year = activeDate.toLocaleString("default", { year: "numeric" });
+    const month = activeDate.toLocaleString("default", { month: "long" });
+    const year = activeDate.toLocaleString("default", { year: "numeric" });
+    const weekdays = [
+      new Date(2020, 12, 31).toLocaleString("default", { weekday: "short" }),
+      new Date(2021, 1, 1).toLocaleString("default", { weekday: "short" }),
+      new Date(2021, 1, 2).toLocaleString("default", { weekday: "short" }),
+      new Date(2021, 1, 3).toLocaleString("default", { weekday: "short" }),
+      new Date(2021, 1, 4).toLocaleString("default", { weekday: "short" }),
+      new Date(2021, 1, 5).toLocaleString("default", { weekday: "short" }),
+      new Date(2021, 1, 6).toLocaleString("default", { weekday: "short" })
+    ];
+    const days = monthDays(activeDate);
     return /* @__PURE__ */ v("div", {
       class: "calendarbox"
     }, /* @__PURE__ */ v("div", {
@@ -469,7 +500,15 @@
       class: "right-arr"
     }, "<"), /* @__PURE__ */ v("p", {
       class: "left-arr"
-    }, ">")), /* @__PURE__ */ v("input", {
+    }, ">")), /* @__PURE__ */ v("div", {
+      class: "week-row"
+    }, weekdays.map((day) => /* @__PURE__ */ v(Cell, {
+      key: "cell-" + day,
+      value: day
+    })), days.map((day) => /* @__PURE__ */ v(Cell, {
+      key: "cell-" + day,
+      value: day
+    }))), /* @__PURE__ */ v("input", {
       type: "hidden",
       value: selectedDates.join(","),
       name: outputName
