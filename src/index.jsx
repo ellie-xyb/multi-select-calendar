@@ -11,11 +11,12 @@ function Calendar({availableDates="", outputName="selected-dates"}){
   let year = activeDate.toLocaleString('default', {year: 'numeric'});
 
   return (
-    <div>
-      <p>{month} {year}</p>
-      <p>&lt;</p>
-       &gt;
-
+    <div class="calendarbox">
+      <div class="month-year-title">
+        <p>{month} {year}</p>
+        <p class="right-arr">&lt;</p>
+        <p class="left-arr">&gt;</p>
+      </div>
 
       <input type='hidden' value={selectedDates.join(",")} name={outputName} />
     </div>

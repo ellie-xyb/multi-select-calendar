@@ -461,7 +461,15 @@
     const [activeDate, setActiveDate] = l3(new Date());
     let month = activeDate.toLocaleString("default", { month: "long" });
     let year = activeDate.toLocaleString("default", { year: "numeric" });
-    return /* @__PURE__ */ v("div", null, /* @__PURE__ */ v("p", null, month, " ", year), /* @__PURE__ */ v("p", null, "<"), ">", /* @__PURE__ */ v("input", {
+    return /* @__PURE__ */ v("div", {
+      class: "calendarbox"
+    }, /* @__PURE__ */ v("div", {
+      class: "month-year-title"
+    }, /* @__PURE__ */ v("p", null, month, " ", year), /* @__PURE__ */ v("p", {
+      class: "right-arr"
+    }, "<"), /* @__PURE__ */ v("p", {
+      class: "left-arr"
+    }, ">")), /* @__PURE__ */ v("input", {
       type: "hidden",
       value: selectedDates.join(","),
       name: outputName
