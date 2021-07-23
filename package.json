@@ -5,7 +5,8 @@
   "main": "calendar.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "esbuild src/index.jsx --bundle --jsx-factory=h --jsx-fragment=Fragment --outfile=dist/calendar.js"
+    "build": "esbuild src/index.jsx --bundle --jsx-factory=h --jsx-fragment=Fragment --outfile=dist/calendar.js",
+    "build-minified": "esbuild src/index.jsx --bundle --jsx-factory=h --jsx-fragment=Fragment --outfile=dist/calendar.min.js --minify"
   },
   "repository": {
     "type": "git",
