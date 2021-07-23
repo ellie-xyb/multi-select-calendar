@@ -19,6 +19,7 @@
 .month-year-title {
   margin-left: 30px;
   margin-top: 20px;
+  margin-bottom: 30px;
   display: flex;
   justify-content: space-between;
 }
@@ -36,7 +37,6 @@
   flex-wrap: wrap;
   width: calc(50px * 7);
   margin: 10px auto;
-  justify-content: space-around;
 }
 .cell {
   display: flex;

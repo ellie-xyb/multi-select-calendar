@@ -495,14 +495,24 @@
     const year = activeDate.toLocaleString("default", { year: "numeric" });
     const weekdays = weekDays();
     const days = monthDays(activeDate);
+    function prevMon() {
+      let lastMonDay = new Date(activeDate.getFullYear(), activeDate.getMonth() - 1, 1);
+      setActiveDate(lastMonDay);
+    }
+    function nextMon() {
+      let nextMonDay = new Date(activeDate.getFullYear(), activeDate.getMonth() + 1, 1);
+      setActiveDate(nextMonDay);
+    }
     return /* @__PURE__ */ v("div", {
       class: "calendarbox"
     }, /* @__PURE__ */ v("div", {
       class: "month-year-title"
-    }, /* @__PURE__ */ v("p", null, month, " ", year), /* @__PURE__ */ v("p", {
-      class: "right-arr"
+    }, /* @__PURE__ */ v("p", null, /* @__PURE__ */ v("strong", null, month, " ", year)), /* @__PURE__ */ v("p", {
+      class: "right-arr",
+      onClick: prevMon
     }, "<"), /* @__PURE__ */ v("p", {
-      class: "left-arr"
+      class: "left-arr",
+      onClick: nextMon
     }, ">")), /* @__PURE__ */ v("div", {
       class: "week-row"
     }, weekdays.map((day) => /* @__PURE__ */ v(Cell, {

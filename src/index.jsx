@@ -56,12 +56,22 @@ function Calendar({availableDates="", outputName="selected-dates"}){
 
   const days = monthDays(activeDate);
 
+  function prevMon(){
+    let lastMonDay = new Date(activeDate.getFullYear(), activeDate.getMonth()-1, 1);
+    setActiveDate(lastMonDay);
+  }
+
+  function nextMon(){
+    let nextMonDay = new Date(activeDate.getFullYear(), activeDate.getMonth()+1, 1);
+    setActiveDate(nextMonDay);
+  }
+
   return (
     <div class="calendarbox">
       <div class="month-year-title">
-        <p>{month} {year}</p>
-        <p class="right-arr">&lt;</p>
-        <p class="left-arr">&gt;</p>
+        <p><strong>{month} {year}</strong></p>
+        <p class="right-arr" onClick={prevMon}>&lt;</p>
+        <p class="left-arr" onClick={nextMon}>&gt;</p>
       </div>
       <div class="week-row">
         { weekdays.map(day => <Cell key={"cell-" + day} value={day} />) }
