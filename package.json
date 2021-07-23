@@ -1,8 +1,8 @@
 {
   "name": "@ellie-xyb/multi-select-calendar",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A calendar supporting multi select built with preact.",
-  "main": "dist/calendar.min.js",
+  "main": "dist/calendar.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "esbuild src/index.jsx --bundle --jsx-factory=h --jsx-fragment=Fragment --outfile=dist/calendar.js",
