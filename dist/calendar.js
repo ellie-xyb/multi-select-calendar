@@ -456,8 +456,13 @@
   }
 
   // src/index.jsx
-  function Cell({ value, onClick, fullDate = "", active }) {
-    const className = active ? "cell cell-active" : "cell";
+  function Cell({ value, onClick, fullDate = "", active, available }) {
+    let className = active ? "cell cell-active" : "cell";
+    if (available) {
+      className += " cell-available";
+    } else {
+      className += " cell-unavailable";
+    }
     return /* @__PURE__ */ v("div", {
       onClick,
       className,
@@ -495,6 +500,7 @@
     ];
   }
   function Calendar({ availableDates = "", outputName = "selected-dates" }) {
+    const availableDatesArr = availableDates.split(",");
     const [selectedDates, setSelectedDates] = l3([]);
     const [activeDate, setActiveDate] = l3(new Date());
     const month = activeDate.toLocaleString("default", { month: "long" });
@@ -505,6 +511,9 @@
       let newSelectedDates = [...selectedDates];
       const fullDate = event.target.dataset.fullDate;
       const idx = newSelectedDates.indexOf(fullDate);
+      if (availableDatesArr.indexOf(fullDate) < 0) {
+        return;
+      }
       if (idx >= 0) {
         newSelectedDates.splice(idx, 1);
       } else {
@@ -534,7 +543,8 @@
       class: "week-row"
     }, weekdays.map((day) => /* @__PURE__ */ v(Cell, {
       key: "cell-" + day,
-      value: day
+      value: day,
+      available: true
     })), days.map(([daynum, day]) => {
       const fullDate = `${activeDate.getFullYear()}-${activeDate.getMonth() + 1}-${daynum}`;
       return /* @__PURE__ */ v(Cell, {
@@ -542,7 +552,8 @@
         value: day,
         onClick: toggleSelectedDate,
         fullDate,
-        active: selectedDates.indexOf(fullDate) >= 0
+        active: selectedDates.indexOf(fullDate) >= 0,
+        available: availableDatesArr.indexOf(fullDate) >= 0
       });
     })), /* @__PURE__ */ v("input", {
       type: "hidden",

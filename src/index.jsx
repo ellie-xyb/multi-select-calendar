@@ -3,8 +3,14 @@ import register from 'preact-custom-element';
 import {useState} from 'preact/hooks';
 import './index.css';
 
-function Cell({value, onClick, fullDate='', active}) {
-  const className = active ? "cell cell-active" : "cell";
+function Cell({value, onClick, fullDate='', active, available}) {
+  let className = active ? "cell cell-active" : "cell";
+
+  if (available) {
+    className += " cell-available";
+  } else {
+    className += " cell-unavailable";
+  }
   return (
     <div onClick={onClick} className={className} data-full-date={fullDate}>
       { value }
@@ -48,6 +54,7 @@ function weekDays(){
 }
 
 function Calendar({availableDates="", outputName="selected-dates"}){
+  const availableDatesArr = availableDates.split(",");
   const [selectedDates, setSelectedDates] = useState([]);
   const [activeDate, setActiveDate] = useState(new Date());
 
@@ -62,6 +69,10 @@ function Calendar({availableDates="", outputName="selected-dates"}){
     let newSelectedDates = [...selectedDates];
     const fullDate = event.target.dataset.fullDate;
     const idx = newSelectedDates.indexOf(fullDate);
+
+    if (availableDatesArr.indexOf(fullDate) < 0) {
+      return;
+    }
 
     if (idx >= 0){
       newSelectedDates.splice(idx, 1);
@@ -90,7 +101,7 @@ function Calendar({availableDates="", outputName="selected-dates"}){
         <p class="left-arr" onClick={nextMon}>&gt;</p>
       </div>
       <div class="week-row">
-        { weekdays.map(day => <Cell key={"cell-" + day} value={day} />) }
+        { weekdays.map(day => <Cell key={"cell-" + day} value={day} available={true} />) }
         { days.map(([daynum, day]) => {
           const fullDate = `${activeDate.getFullYear()}-${activeDate.getMonth()+1}-${daynum}`;
           return (
@@ -100,6 +111,7 @@ function Calendar({availableDates="", outputName="selected-dates"}){
               onClick={toggleSelectedDate}
               fullDate={fullDate}
               active={selectedDates.indexOf(fullDate) >= 0}
+              available={availableDatesArr.indexOf(fullDate) >= 0}
             />
           )
         }

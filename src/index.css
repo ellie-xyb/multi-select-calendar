@@ -64,6 +64,14 @@
   color: white;
 }
 
+.cell-unavailable {
+  opacity: 0.3;
+}
+
+.cell-available {
+  opacity: 1;
+}
+
 .sub-btn {
   margin-left: 240px;
   margin-top: 22px;
