@@ -456,9 +456,12 @@
   }
 
   // src/index.jsx
-  function Cell({ value }) {
+  function Cell({ value, onClick, fullDate = "", active }) {
+    const className = active ? "cell cell-active" : "cell";
     return /* @__PURE__ */ v("div", {
-      className: "cell"
+      onClick,
+      className,
+      "data-full-date": fullDate
     }, value);
   }
   function monthDays(activeDate) {
@@ -473,7 +476,10 @@
       out.push("");
     }
     for (let i4 = 1; i4 <= lastDate; i4++) {
-      out.push(new Date(activeDate.getFullYear(), activeDate.getMonth(), i4).toLocaleString("default", { day: "numeric" }));
+      out.push([
+        i4,
+        new Date(activeDate.getFullYear(), activeDate.getMonth(), i4).toLocaleString("default", { day: "numeric" })
+      ]);
     }
     return out;
   }
@@ -495,6 +501,17 @@
     const year = activeDate.toLocaleString("default", { year: "numeric" });
     const weekdays = weekDays();
     const days = monthDays(activeDate);
+    function toggleSelectedDate(event) {
+      let newSelectedDates = [...selectedDates];
+      const fullDate = event.target.dataset.fullDate;
+      const idx = newSelectedDates.indexOf(fullDate);
+      if (idx >= 0) {
+        newSelectedDates.splice(idx, 1);
+      } else {
+        newSelectedDates.push(fullDate);
+      }
+      setSelectedDates(newSelectedDates);
+    }
     function prevMon() {
       let lastMonDay = new Date(activeDate.getFullYear(), activeDate.getMonth() - 1, 1);
       setActiveDate(lastMonDay);
@@ -518,10 +535,16 @@
     }, weekdays.map((day) => /* @__PURE__ */ v(Cell, {
       key: "cell-" + day,
       value: day
-    })), days.map((day) => /* @__PURE__ */ v(Cell, {
-      key: "cell-" + day,
-      value: day
-    }))), /* @__PURE__ */ v("input", {
+    })), days.map(([daynum, day]) => {
+      const fullDate = `${activeDate.getFullYear()}-${activeDate.getMonth() + 1}-${daynum}`;
+      return /* @__PURE__ */ v(Cell, {
+        key: "cell-" + daynum,
+        value: day,
+        onClick: toggleSelectedDate,
+        fullDate,
+        active: selectedDates.indexOf(fullDate) >= 0
+      });
+    })), /* @__PURE__ */ v("input", {
       type: "hidden",
       value: selectedDates.join(","),
       name: outputName

@@ -58,6 +58,12 @@
   align-items: center;
 }
 
+.cell-active {
+  background-color: #80c985;
+  border-radius: 50%;
+  color: white;
+}
+
 .sub-btn {
   margin-left: 240px;
   margin-top: 22px;

@@ -3,9 +3,10 @@ import register from 'preact-custom-element';
 import {useState} from 'preact/hooks';
 import './index.css';
 
-function Cell({value}) {
+function Cell({value, onClick, fullDate='', active}) {
+  const className = active ? "cell cell-active" : "cell";
   return (
-    <div className="cell">
+    <div onClick={onClick} className={className} data-full-date={fullDate}>
       { value }
     </div>
   );
@@ -27,7 +28,8 @@ function monthDays(activeDate) {
   }
 
   for (let i = 1; i <= lastDate; i++) {
-    out.push(new Date(activeDate.getFullYear(), activeDate.getMonth(), i).toLocaleString('default', {day: 'numeric'}))
+    out.push([i,
+            new Date(activeDate.getFullYear(), activeDate.getMonth(), i).toLocaleString('default', {day: 'numeric'})])
   }
 
   return out;
@@ -56,6 +58,20 @@ function Calendar({availableDates="", outputName="selected-dates"}){
 
   const days = monthDays(activeDate);
 
+  function toggleSelectedDate(event){
+    let newSelectedDates = [...selectedDates];
+    const fullDate = event.target.dataset.fullDate;
+    const idx = newSelectedDates.indexOf(fullDate);
+
+    if (idx >= 0){
+      newSelectedDates.splice(idx, 1);
+    } else {
+      newSelectedDates.push(fullDate);
+    }
+
+    setSelectedDates(newSelectedDates);
+  }
+
   function prevMon(){
     let lastMonDay = new Date(activeDate.getFullYear(), activeDate.getMonth()-1, 1);
     setActiveDate(lastMonDay);
@@ -75,7 +91,19 @@ function Calendar({availableDates="", outputName="selected-dates"}){
       </div>
       <div class="week-row">
         { weekdays.map(day => <Cell key={"cell-" + day} value={day} />) }
-        { days.map(day => <Cell key={"cell-" + day} value={day} />) }
+        { days.map(([daynum, day]) => {
+          const fullDate = `${activeDate.getFullYear()}-${activeDate.getMonth()+1}-${daynum}`;
+          return (
+            <Cell
+              key={"cell-" + daynum}
+              value={day}
+              onClick={toggleSelectedDate}
+              fullDate={fullDate}
+              active={selectedDates.indexOf(fullDate) >= 0}
+            />
+          )
+        }
+      )}
       </div>
 
       <input type='hidden' value={selectedDates.join(",")} name={outputName} />
