@@ -19,18 +19,20 @@
 
 
 .month-year-title {
-  padding: 10px 8px 10px 5px;
+  margin-left: 30px;
+  margin-top: 20px;
   display: flex;
+  justify-content: space-between;
 }
 
 .right-arr {
   position: relative;
-  left: 220px;
+  left: 30px;
 }
 
 .left-arr {
   position: relative;
-  left: 270px;
+  left: -38px;
 }
 
 .week-row {

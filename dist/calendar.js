@@ -477,12 +477,8 @@
     }
     return out;
   }
-  function Calendar({ availableDates = "", outputName = "selected-dates" }) {
-    const [selectedDates, setSelectedDates] = l3([]);
-    const [activeDate, setActiveDate] = l3(new Date());
-    const month = activeDate.toLocaleString("default", { month: "long" });
-    const year = activeDate.toLocaleString("default", { year: "numeric" });
-    const weekdays = [
+  function weekDays() {
+    return [
       new Date(2020, 12, 31).toLocaleString("default", { weekday: "short" }),
       new Date(2021, 1, 1).toLocaleString("default", { weekday: "short" }),
       new Date(2021, 1, 2).toLocaleString("default", { weekday: "short" }),
@@ -491,6 +487,13 @@
       new Date(2021, 1, 5).toLocaleString("default", { weekday: "short" }),
       new Date(2021, 1, 6).toLocaleString("default", { weekday: "short" })
     ];
+  }
+  function Calendar({ availableDates = "", outputName = "selected-dates" }) {
+    const [selectedDates, setSelectedDates] = l3([]);
+    const [activeDate, setActiveDate] = l3(new Date());
+    const month = activeDate.toLocaleString("default", { month: "long" });
+    const year = activeDate.toLocaleString("default", { year: "numeric" });
+    const weekdays = weekDays();
     const days = monthDays(activeDate);
     return /* @__PURE__ */ v("div", {
       class: "calendarbox"
