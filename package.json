@@ -1,0 +1,25 @@
+{
+  "name": "calendar",
+  "version": "1.0.0",
+  "description": "",
+  "main": "calendar.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "esbuild src/index.jsx --bundle --jsx-factory=h --jsx-fragment=Fragment --outfile=dist/calendar.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ellie-xyb/calendar.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ellie-xyb/calendar/issues"
+  },
+  "homepage": "https://github.com/ellie-xyb/calendar#readme",
+  "dependencies": {
+    "esbuild": "^0.12.15",
+    "preact": "^10.5.14",
+    "preact-custom-element": "^4.2.1"
+  }
+}

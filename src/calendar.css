@@ -1,0 +1,19 @@
+* {
+  box-sizing: : border-box;
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.calendarbox {
+  margin-top: 100px;
+  width: 500px;
+  height: 500px;
+  background-color: #F9F9F9;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
