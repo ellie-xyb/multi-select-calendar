@@ -20,13 +20,13 @@
   cursor: pointer;
 }
 .month-year-box {
-  margin: 14px 25px;
+  margin: 14px 26px;
   display: flex;
   justify-content: space-between;
   text-align: center;
 }
 .arr {
-  width: 10%;
+  width: 18%;
   display: flex;
   justify-content: space-between;
 }
