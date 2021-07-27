@@ -499,8 +499,8 @@
       new Date(2021, 1, 6).toLocaleString("en", { weekday: "short" })
     ];
   }
-  function Calendar({ availableDates = "", outputName = "selected-dates" }) {
-    const availableDatesArr = availableDates.split(",");
+  function Calendar({ availableDates = null, outputName = "selected-dates" }) {
+    const availableDatesArr = availableDates === null ? "" : availableDates.split(",");
     const [selectedDates, setSelectedDates] = l3([]);
     const [activeDate, setActiveDate] = l3(new Date());
     const month = activeDate.toLocaleString("en", { month: "long" });
@@ -511,7 +511,7 @@
       let newSelectedDates = [...selectedDates];
       const fullDate = event.target.dataset.fullDate;
       const idx = newSelectedDates.indexOf(fullDate);
-      if (availableDatesArr.indexOf(fullDate) < 0) {
+      if (availableDates !== null && availableDatesArr.indexOf(fullDate) < 0) {
         return;
       }
       if (idx >= 0) {
@@ -559,7 +559,7 @@
         onClick: toggleSelectedDate,
         fullDate,
         active: selectedDates.indexOf(fullDate) >= 0,
-        available: availableDatesArr.indexOf(fullDate) >= 0
+        available: availableDates === null || availableDatesArr.indexOf(fullDate) >= 0
       });
     }))), /* @__PURE__ */ v("input", {
       type: "hidden",

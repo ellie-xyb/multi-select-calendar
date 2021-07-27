@@ -53,8 +53,8 @@ function weekDays(){
   ];
 }
 
-function Calendar({availableDates="", outputName="selected-dates"}){
-  const availableDatesArr = availableDates.split(",");
+function Calendar({availableDates=null, outputName="selected-dates"}){
+  const availableDatesArr = availableDates===null ? "" : availableDates.split(",");
   const [selectedDates, setSelectedDates] = useState([]);
   const [activeDate, setActiveDate] = useState(new Date());
 
@@ -70,7 +70,7 @@ function Calendar({availableDates="", outputName="selected-dates"}){
     const fullDate = event.target.dataset.fullDate;
     const idx = newSelectedDates.indexOf(fullDate);
 
-    if (availableDatesArr.indexOf(fullDate) < 0) {
+    if (availableDates !== null && availableDatesArr.indexOf(fullDate) < 0) {
       return;
     }
 
@@ -114,7 +114,7 @@ function Calendar({availableDates="", outputName="selected-dates"}){
                 onClick={toggleSelectedDate}
                 fullDate={fullDate}
                 active={selectedDates.indexOf(fullDate) >= 0}
-                available={availableDatesArr.indexOf(fullDate) >= 0}
+                available={availableDates===null || availableDatesArr.indexOf(fullDate) >= 0}
               />
             )
           }
