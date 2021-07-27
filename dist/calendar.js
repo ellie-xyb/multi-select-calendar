@@ -483,28 +483,28 @@
     for (let i4 = 1; i4 <= lastDate; i4++) {
       out.push([
         i4,
-        new Date(activeDate.getFullYear(), activeDate.getMonth(), i4).toLocaleString("default", { day: "numeric" })
+        new Date(activeDate.getFullYear(), activeDate.getMonth(), i4).toLocaleString("en", { day: "numeric" })
       ]);
     }
     return out;
   }
   function weekDays() {
     return [
-      new Date(2020, 12, 31).toLocaleString("default", { weekday: "short" }),
-      new Date(2021, 1, 1).toLocaleString("default", { weekday: "short" }),
-      new Date(2021, 1, 2).toLocaleString("default", { weekday: "short" }),
-      new Date(2021, 1, 3).toLocaleString("default", { weekday: "short" }),
-      new Date(2021, 1, 4).toLocaleString("default", { weekday: "short" }),
-      new Date(2021, 1, 5).toLocaleString("default", { weekday: "short" }),
-      new Date(2021, 1, 6).toLocaleString("default", { weekday: "short" })
+      new Date(2020, 12, 31).toLocaleString("en", { weekday: "short" }),
+      new Date(2021, 1, 1).toLocaleString("en", { weekday: "short" }),
+      new Date(2021, 1, 2).toLocaleString("en", { weekday: "short" }),
+      new Date(2021, 1, 3).toLocaleString("en", { weekday: "short" }),
+      new Date(2021, 1, 4).toLocaleString("en", { weekday: "short" }),
+      new Date(2021, 1, 5).toLocaleString("en", { weekday: "short" }),
+      new Date(2021, 1, 6).toLocaleString("en", { weekday: "short" })
     ];
   }
   function Calendar({ availableDates = "", outputName = "selected-dates" }) {
     const availableDatesArr = availableDates.split(",");
     const [selectedDates, setSelectedDates] = l3([]);
     const [activeDate, setActiveDate] = l3(new Date());
-    const month = activeDate.toLocaleString("default", { month: "long" });
-    const year = activeDate.toLocaleString("default", { year: "numeric" });
+    const month = activeDate.toLocaleString("en", { month: "long" });
+    const year = activeDate.toLocaleString("en", { year: "numeric" });
     const weekdays = weekDays();
     const days = monthDays(activeDate);
     function toggleSelectedDate(event) {
@@ -530,16 +530,22 @@
       setActiveDate(nextMonDay);
     }
     return /* @__PURE__ */ v("div", {
+      class: "wrapbox"
+    }, /* @__PURE__ */ v("div", {
       class: "calendarbox"
     }, /* @__PURE__ */ v("div", {
-      class: "month-year-title"
-    }, /* @__PURE__ */ v("p", null, /* @__PURE__ */ v("strong", null, month, " ", year)), /* @__PURE__ */ v("p", {
+      class: "month-year-box"
+    }, /* @__PURE__ */ v("p", {
+      class: "month-year"
+    }, /* @__PURE__ */ v("strong", null, month, " ", year)), /* @__PURE__ */ v("div", {
+      class: "arr"
+    }, /* @__PURE__ */ v("p", {
       class: "right-arr",
       onClick: prevMon
     }, "<"), /* @__PURE__ */ v("p", {
       class: "left-arr",
       onClick: nextMon
-    }, ">")), /* @__PURE__ */ v("div", {
+    }, ">"))), /* @__PURE__ */ v("div", {
       class: "week-row"
     }, weekdays.map((day) => /* @__PURE__ */ v(Cell, {
       key: "cell-" + day,
@@ -555,7 +561,7 @@
         active: selectedDates.indexOf(fullDate) >= 0,
         available: availableDatesArr.indexOf(fullDate) >= 0
       });
-    })), /* @__PURE__ */ v("input", {
+    }))), /* @__PURE__ */ v("input", {
       type: "hidden",
       value: selectedDates.join(","),
       name: outputName

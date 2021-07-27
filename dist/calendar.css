@@ -1,45 +1,41 @@
 /* src/index.css */
-* {
-  box-sizing: : border-box;
-  border: 0;
-  margin: 0;
-  padding: 0;
+.wrapbox {
+  max-width: 700px;
+  height: 580px;
+  display: flex;
+  justify-content: center;
+  text-align: center;
 }
 .calendarbox {
-  margin-top: 100px;
-  margin-left: 80px;
-  max-width: 400px;
-  max-height: 600px;
+  height: 430px;
   background-color: #F9F9F9;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.9);
   border-radius: 10px;
   align-content: center;
+  justify-content: center;
 }
 .calendarbox:hover {
   box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
 }
-.month-year-title {
-  margin-left: 30px;
-  margin-top: 20px;
-  margin-bottom: 30px;
+.month-year-box {
+  margin: 14px 25px;
   display: flex;
   justify-content: space-between;
+  text-align: center;
 }
-.right-arr {
-  position: relative;
-  left: 30px;
-}
-.left-arr {
-  position: relative;
-  left: -38px;
+.arr {
+  width: 10%;
+  display: flex;
+  justify-content: space-between;
 }
 .week-row {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   width: calc(50px * 7);
-  margin: 10px auto;
+  margin: 10px 20px;
 }
 .cell {
   display: flex;
@@ -62,8 +58,6 @@
   opacity: 1;
 }
 .sub-btn {
-  margin-left: 240px;
-  margin-top: 22px;
   padding: 10px 15px;
   color: white;
   border-radius: 5px;

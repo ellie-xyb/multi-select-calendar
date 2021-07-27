@@ -35,7 +35,7 @@ function monthDays(activeDate) {
 
   for (let i = 1; i <= lastDate; i++) {
     out.push([i,
-            new Date(activeDate.getFullYear(), activeDate.getMonth(), i).toLocaleString('default', {day: 'numeric'})])
+            new Date(activeDate.getFullYear(), activeDate.getMonth(), i).toLocaleString('en', {day: 'numeric'})])
   }
 
   return out;
@@ -43,13 +43,13 @@ function monthDays(activeDate) {
 
 function weekDays(){
   return [
-    new Date(2020, 12, 31).toLocaleString('default', {weekday: 'short'}),
-    new Date(2021, 1, 1).toLocaleString('default', {weekday: 'short'}),
-    new Date(2021, 1, 2).toLocaleString('default', {weekday: 'short'}),
-    new Date(2021, 1, 3).toLocaleString('default', {weekday: 'short'}),
-    new Date(2021, 1, 4).toLocaleString('default', {weekday: 'short'}),
-    new Date(2021, 1, 5).toLocaleString('default', {weekday: 'short'}),
-    new Date(2021, 1, 6).toLocaleString('default', {weekday: 'short'}),
+    new Date(2020, 12, 31).toLocaleString('en', {weekday: 'short'}),
+    new Date(2021, 1, 1).toLocaleString('en', {weekday: 'short'}),
+    new Date(2021, 1, 2).toLocaleString('en', {weekday: 'short'}),
+    new Date(2021, 1, 3).toLocaleString('en', {weekday: 'short'}),
+    new Date(2021, 1, 4).toLocaleString('en', {weekday: 'short'}),
+    new Date(2021, 1, 5).toLocaleString('en', {weekday: 'short'}),
+    new Date(2021, 1, 6).toLocaleString('en', {weekday: 'short'}),
   ];
 }
 
@@ -58,8 +58,8 @@ function Calendar({availableDates="", outputName="selected-dates"}){
   const [selectedDates, setSelectedDates] = useState([]);
   const [activeDate, setActiveDate] = useState(new Date());
 
-  const month = activeDate.toLocaleString('default', {month: 'long'});
-  const year = activeDate.toLocaleString('default', {year: 'numeric'});
+  const month = activeDate.toLocaleString('en', {month: 'long'});
+  const year = activeDate.toLocaleString('en', {year: 'numeric'});
 
   const weekdays = weekDays();
 
@@ -94,30 +94,33 @@ function Calendar({availableDates="", outputName="selected-dates"}){
   }
 
   return (
-    <div class="calendarbox">
-      <div class="month-year-title">
-        <p><strong>{month} {year}</strong></p>
-        <p class="right-arr" onClick={prevMon}>&lt;</p>
-        <p class="left-arr" onClick={nextMon}>&gt;</p>
+    <div class="wrapbox">
+      <div class="calendarbox">
+        <div class="month-year-box">
+          <p class= "month-year"><strong>{month} {year}</strong></p>
+          <div class="arr">
+            <p class="right-arr" onClick={prevMon}>&lt;</p>
+            <p class="left-arr" onClick={nextMon}>&gt;</p>
+          </div>
+        </div>
+        <div class="week-row">
+          { weekdays.map(day => <Cell key={"cell-" + day} value={day} available={true} />) }
+          { days.map(([daynum, day]) => {
+            const fullDate = `${activeDate.getFullYear()}-${activeDate.getMonth()+1}-${daynum}`;
+            return (
+              <Cell
+                key={"cell-" + daynum}
+                value={day}
+                onClick={toggleSelectedDate}
+                fullDate={fullDate}
+                active={selectedDates.indexOf(fullDate) >= 0}
+                available={availableDatesArr.indexOf(fullDate) >= 0}
+              />
+            )
+          }
+        )}
+        </div>
       </div>
-      <div class="week-row">
-        { weekdays.map(day => <Cell key={"cell-" + day} value={day} available={true} />) }
-        { days.map(([daynum, day]) => {
-          const fullDate = `${activeDate.getFullYear()}-${activeDate.getMonth()+1}-${daynum}`;
-          return (
-            <Cell
-              key={"cell-" + daynum}
-              value={day}
-              onClick={toggleSelectedDate}
-              fullDate={fullDate}
-              active={selectedDates.indexOf(fullDate) >= 0}
-              available={availableDatesArr.indexOf(fullDate) >= 0}
-            />
-          )
-        }
-      )}
-      </div>
-
       <input type='hidden' value={selectedDates.join(",")} name={outputName} />
     </div>
   );
