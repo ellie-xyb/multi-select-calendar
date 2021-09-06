@@ -1,4 +1,6 @@
 # multi-select-calendar
+
+### [🔗 npm module](https://www.npmjs.com/package/@ellie-xyb/multi-select-calendar)
 ![calendar example](https://res.cloudinary.com/ellie-xyb/image/upload/v1630385604/calendar-s_mtwrdo.png) 
 ![alt calendar example](https://res.cloudinary.com/ellie-xyb/image/upload/v1630386168/calendar-s2_yjzee0.png)
 
